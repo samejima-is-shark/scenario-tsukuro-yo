@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
@@ -118,23 +118,85 @@
 
     .right.outline-collapsed .preview-shell {
       grid-template-columns: minmax(0, 1fr) 0;
+      gap: 0;
     }
 
     .preview-outline-toggle-row {
       display: flex;
-      justify-content: flex-end;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
       margin-bottom: 10px;
+    }
+
+    .preview-outline-intro {
+      margin: 0;
+      flex: 1 1 auto;
     }
 
     .preview-outline-toggle {
       display: inline-flex;
+      flex-direction: row-reverse;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
       gap: 0.45rem;
-      min-height: 36px;
-      padding: 0.4rem 0.8rem;
+      width: 8.9rem;
+      min-width: 8.9rem;
+      height: 2.25rem;
+      min-height: 2.25rem;
+      padding: 0 0.85rem 0 0.42rem;
       border-radius: 999px;
       font-size: 0.82rem;
+      overflow: visible;
+      white-space: nowrap;
+      will-change: width, box-shadow, padding, transform;
+      transition:
+        width 520ms cubic-bezier(0.2, 0.9, 0.25, 1),
+        background-color 140ms ease,
+        border-color 140ms ease,
+        color 140ms ease,
+        box-shadow 360ms ease,
+        padding 520ms cubic-bezier(0.2, 0.9, 0.25, 1),
+        transform 520ms cubic-bezier(0.2, 0.9, 0.25, 1);
+    }
+
+    .preview-outline-toggle .preview-outline-toggle-label {
+      max-width: 7rem;
+      opacity: 1;
+      overflow: hidden;
+      transform: translateX(0);
+      will-change: max-width, opacity, transform;
+      transition:
+        max-width 520ms cubic-bezier(0.2, 0.9, 0.25, 1),
+        opacity 280ms ease,
+        transform 520ms cubic-bezier(0.2, 0.9, 0.25, 1);
+    }
+
+    .right.outline-collapsed .preview-outline-toggle {
+      width: 2.25rem;
+      min-width: 2.25rem;
+      padding: 0;
+      gap: 0;
+      justify-content: center;
+      box-shadow: 0 0 0 rgba(64, 86, 110, 0);
+    }
+
+    .right.outline-collapsed .preview-outline-toggle .preview-outline-toggle-label {
+      max-width: 0;
+      opacity: 0;
+      transform: translateX(12px) scale(0.92);
+    }
+
+    .preview-outline-toggle:hover,
+    .preview-outline-toggle:focus-visible {
+      box-shadow: 0 10px 26px rgba(64, 86, 110, 0.16);
+    }
+
+    .preview-outline-toggle:hover .preview-outline-toggle-label,
+    .preview-outline-toggle:focus-visible .preview-outline-toggle-label {
+      max-width: 7rem;
+      opacity: 1;
+      transform: translateX(0);
     }
 
     .preview-outline {
@@ -302,6 +364,85 @@
       box-shadow: 0 0 0 3px rgba(186, 149, 149, 0.18);
     }
 
+    .list-style-options {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: .4rem;
+      margin-top: .35rem;
+      width: fit-content;
+      max-width: 100%;
+    }
+
+    .list-style-option {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .35rem;
+      padding: .3rem .55rem;
+      border: 1px solid #d9ccc4;
+      border-radius: 999px;
+      background: linear-gradient(180deg, #ffffff 0%, #faf6f1 100%);
+      color: #625651;
+      cursor: pointer;
+      user-select: none;
+      white-space: nowrap;
+      width: auto;
+      min-width: 0;
+      margin-bottom: 0;
+      box-shadow: 0 1px 0 rgba(255,255,255,0.9) inset;
+      transition: background 180ms ease, border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease, color 180ms ease;
+    }
+
+    .list-style-option:hover {
+      background: linear-gradient(180deg, #fffdfb 0%, #f7f1eb 100%);
+      border-color: #c8b4aa;
+      transform: translateY(-1px);
+    }
+
+    .list-style-option:focus-within {
+      box-shadow: 0 0 0 3px rgba(159, 186, 223, 0.28), 0 1px 0 rgba(255,255,255,0.9) inset;
+    }
+
+    .list-style-option:has(input:checked) {
+      background: linear-gradient(180deg, #fff7f8 0%, #fceff1 100%);
+      border-color: #8a2d2d;
+      color: #8a2d2d;
+      box-shadow: 0 0 0 3px rgba(138, 45, 45, 0.08), 0 1px 0 rgba(255,255,255,0.85) inset;
+    }
+
+    .list-style-option input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+      width: 1px;
+      height: 1px;
+    }
+
+    .list-style-option-icon {
+      min-width: 1rem;
+      color: #7f9ab2;
+      text-align: center;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .list-style-option-icon i {
+      line-height: 1;
+    }
+
+    .list-style-option-circle i {
+      font-size: 1.08rem;
+    }
+
+    .list-style-option-number {
+      font-weight: 800;
+      font-size: .88rem;
+      letter-spacing: 0;
+    }
+
     input[type="text"],
     textarea,
     select {
@@ -312,6 +453,14 @@
       font: inherit;
       color: var(--ink);
       background: #fff;
+    }
+
+    input[type="text"]:focus-visible,
+    textarea:focus-visible,
+    select:focus-visible {
+      outline: 0;
+      border-color: #9fbadf;
+      box-shadow: 0 0 0 3px rgba(159, 186, 223, 0.28);
     }
 
     textarea {
@@ -386,6 +535,100 @@
       padding: 0;
       border-radius: 999px;
       aspect-ratio: 1 / 1;
+    }
+
+    #topToolbar .toolbar-icon-button,
+    .scroll-icon-button,
+    .icon-only-button,
+    button[data-tooltip] {
+      position: relative;
+    }
+
+    #topToolbar .toolbar-icon-button {
+      width: 44px;
+      min-width: 44px;
+      height: 44px;
+      min-height: 44px;
+      padding: 0;
+      border-radius: 999px;
+      aspect-ratio: 1 / 1;
+    }
+
+    #topToolbar .toolbar-icon-button i {
+      font-size: 1.12rem;
+      line-height: 1;
+      transform-origin: center;
+      transition: transform 160ms cubic-bezier(0.2, 0.9, 0.25, 1);
+    }
+
+    #topToolbar .toolbar-icon-button:hover i,
+    #topToolbar .toolbar-icon-button:focus-visible i {
+      transform: scale(1.16);
+    }
+
+    #topToolbar .toolbar-icon-button::after,
+    .scroll-icon-button::after,
+    .icon-only-button::after,
+    button[data-tooltip]::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      left: 50%;
+      bottom: calc(100% + 8px);
+      transform: translate(-50%, 6px) scale(0.98);
+      opacity: 0;
+      pointer-events: none;
+      white-space: nowrap;
+      padding: 0.38rem 0.7rem 0.4rem;
+      border-radius: 12px;
+      background: rgba(97, 103, 108, 0.92);
+      color: #fff;
+      font-size: 0.75rem;
+      line-height: 1;
+      box-shadow: 0 8px 18px rgba(49, 43, 39, 0.14);
+      transition: opacity 140ms ease, transform 180ms cubic-bezier(0.2, 0.9, 0.25, 1);
+      z-index: 20;
+    }
+
+    #topToolbar .toolbar-icon-button::before,
+    .scroll-icon-button::before,
+    .icon-only-button::before,
+    button[data-tooltip]::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: calc(100% + 2px);
+      transform: translateX(-50%) translateY(4px);
+      opacity: 0;
+      pointer-events: none;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-top: 6px solid rgba(97, 103, 108, 0.92);
+      transition: opacity 140ms ease, transform 180ms cubic-bezier(0.2, 0.9, 0.25, 1);
+      z-index: 19;
+    }
+
+    #topToolbar .toolbar-icon-button:hover::after,
+    #topToolbar .toolbar-icon-button:focus-visible::after,
+    .scroll-icon-button:hover::after,
+    .scroll-icon-button:focus-visible::after,
+    .icon-only-button:hover::after,
+    .icon-only-button:focus-visible::after,
+    button[data-tooltip]:hover::after,
+    button[data-tooltip]:focus-visible::after {
+      opacity: 1;
+      transform: translate(-50%, 0) scale(1);
+    }
+
+    #topToolbar .toolbar-icon-button:hover::before,
+    #topToolbar .toolbar-icon-button:focus-visible::before,
+    .scroll-icon-button:hover::before,
+    .scroll-icon-button:focus-visible::before,
+    .icon-only-button:hover::before,
+    .icon-only-button:focus-visible::before,
+    button[data-tooltip]:hover::before,
+    button[data-tooltip]:focus-visible::before {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
     }
 
     .scroll-icon-button {
@@ -506,6 +749,40 @@
 
     .notes-row {
       margin-top: 12px;
+    }
+
+    .notes-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 10px;
+      margin-bottom: 6px;
+    }
+
+    .notes-head label {
+      margin: 0;
+    }
+
+    .icon-only-button.notes-remove-button {
+      width: 30px;
+      min-width: 30px;
+      height: 30px;
+      min-height: 30px;
+      padding: 0;
+      color: #8a2d2d;
+      border-color: #8a2d2d;
+      background: transparent;
+    }
+
+    .icon-only-button.notes-remove-button:hover {
+      color: #fff;
+      border-color: #8a2d2d;
+      background: #8a2d2d;
+    }
+
+    .icon-only-button.notes-remove-button i {
+      font-size: 0.84rem;
     }
 
     .icon-picker {
@@ -1385,6 +1662,39 @@
       font-size: 0.88rem;
     }
 
+    .preview-inline-link {
+      color: #346B8B;
+      text-decoration: underline;
+      text-underline-offset: 0.16em;
+      font-weight: 700;
+    }
+
+    .preview-ending-list {
+      display: grid;
+      gap: 1rem;
+      margin: 0 1rem;
+    }
+
+    .preview-ending-item {
+      border: 1px solid #e7ddd1;
+      border-radius: 14px;
+      background: #fffdfa;
+      overflow: hidden;
+    }
+
+    .preview-ending-title {
+      padding: 10px 14px;
+      font-weight: 800;
+      color: #4b6173;
+      background: #f2efea;
+      border-bottom: 1px solid #e7ddd1;
+    }
+
+    .preview-ending-body {
+      padding: 12px 14px;
+      white-space: pre-wrap;
+    }
+
     .preview-backtoc {
       margin: 1rem 1rem 0 1rem;
       display: flex;
@@ -1552,7 +1862,6 @@
     .fa-regular {
       display: inline-block;
       line-height: 1;
-      vertical-align: middle;
     }
 
     .icon-only-button {
@@ -1716,6 +2025,58 @@
     }
 
     .preview-choice-item.is-open .preview-choice-answer {
+      display: block;
+    }
+
+    .preview-list-bullets {
+      margin: 0 1rem;
+      display: grid;
+      gap: 0.7rem;
+    }
+
+    .preview-list-item {
+      display: grid;
+      grid-template-columns: 1.2rem minmax(0, 1fr);
+      column-gap: 0.4rem;
+      align-items: baseline;
+    }
+
+    .preview-list-marker {
+      width: 1.2rem;
+      min-width: 1.2rem;
+      display: inline-flex;
+      align-items: baseline;
+      justify-content: center;
+      line-height: 1;
+      text-align: center;
+    }
+
+    .preview-list-marker i {
+      line-height: 1;
+    }
+
+    .preview-list-check {
+      color: #7f9ab2;
+      font-size: 0.82rem;
+      transform: translateY(0.04rem);
+    }
+
+    .preview-list-circle {
+      color: #7f9ab2;
+      font-size: 0.94rem;
+      transform: translateY(0.03rem);
+    }
+
+    .preview-list-number {
+      color: #7f9ab2;
+      font-size: 0.98rem;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      transform: translateY(0.02rem);
+    }
+
+    .preview-list-text {
+      white-space: pre-wrap;
       display: block;
     }
 
@@ -2317,12 +2678,18 @@
 
       <div class="toolbar" id="topToolbar">
         <button class="primary" id="addSectionButton">セクション追加</button>
-        <button class="secondary" id="saveJsonButton">保存</button>
-        <button class="secondary" id="loadJsonButton">読込</button>
-        <button class="secondary" id="exportHtmlButton">HTML保存</button>
+        <button class="secondary toolbar-icon-button" id="saveJsonButton" type="button" aria-label="保存" data-tooltip="保存">
+          <i class="fa-solid fa-floppy-disk" aria-hidden="true"></i>
+        </button>
+        <button class="secondary toolbar-icon-button" id="loadJsonButton" type="button" aria-label="読込" data-tooltip="読込">
+          <i class="fa-solid fa-file-import" aria-hidden="true"></i>
+        </button>
+        <button class="secondary toolbar-icon-button" id="exportHtmlButton" type="button" aria-label="HTML保存" data-tooltip="HTML保存">
+          <i class="fa-solid fa-file-code" aria-hidden="true"></i>
+        </button>
         <button class="danger" id="resetButton">全体クリア</button>
         <div class="toolbar-end-group">
-          <button class="secondary scroll-bottom-button scroll-icon-button" id="scrollBottomButton" type="button" aria-label="下に下りる" title="下に下りる">
+          <button class="secondary scroll-bottom-button scroll-icon-button" id="scrollBottomButton" type="button" aria-label="一番下へ" data-tooltip="一番下へ">
             <i class="fa-solid fa-arrow-down" aria-hidden="true"></i>
           </button>
         </div>
@@ -2337,11 +2704,11 @@
 
     <section class="panel right">
       <h2>プレビュー</h2>
-      <p class="muted">🐰＜あなたならシナリオ完成させられます…！）🐺＜さぁ、やるんだ。）</p>
       <div class="preview-outline-toggle-row">
-        <button class="secondary preview-outline-toggle" id="previewOutlineToggle" type="button" aria-label="見出しナビを閉じる" title="見出しナビを閉じる">
+        <p class="muted preview-outline-intro">🐰＜あなたならシナリオ完成させられます…！）🐺＜さぁ、やるんだ。）</p>
+        <button class="secondary preview-outline-toggle" id="previewOutlineToggle" type="button" aria-label="ナビを閉じる" data-tooltip="見出しナビ">
           <i class="fa-solid fa-bars-staggered" aria-hidden="true"></i>
-          <span>見出しナビ</span>
+          <span class="preview-outline-toggle-label">見出しナビ</span>
         </button>
       </div>
       <div class="preview-shell">
@@ -2365,6 +2732,7 @@
       { value: "quote", label: "セリフ" },
       { value: "qa", label: "Q&A" },
       { value: "choices", label: "選択肢" },
+      { value: "ending", label: "エンディング" },
       { value: "explore", label: "探索箇所" },
       { value: "handout", label: "渡す情報" },
       { value: "secretho", label: "秘匿HO" },
@@ -2379,7 +2747,7 @@
 
     const childTypeGroups = [
       ["description","scene","prose","truth","checkitem","trigger"],
-      ["skill","sancheck","opposedroll","quote","qa","choices"],
+      ["skill","sancheck","opposedroll","quote","qa","choices","ending"],
       ["explore","handout","secretho","character","list"],
       ["scenechange","subheading","toc","memo","divider"]
     ];
@@ -2518,6 +2886,9 @@
         child.sancheckKind = child.sanhealKind === "hp" ? "hpheal" : "sanheal";
         delete child.sanhealKind;
       }
+      if (child.type === "list") {
+        child.listStyle = child.listStyle === "dot" ? "circle" : (child.listStyle || "check");
+      }
       return child;
     }
 
@@ -2561,6 +2932,10 @@
 
     function createDefaultChoiceItems() {
       return [{ id: uid(), text: "", destination: "", collapsed: false }];
+    }
+
+    function createDefaultEndingItems() {
+      return [{ id: uid(), title: "", body: "", collapsed: false }];
     }
 
     function createPreludeExtraItem() {
@@ -2694,6 +3069,7 @@
         sancheckKind: "san",
         checkitemKind: "confirm",
         triggerTone: "purple",
+        listStyle: "check",
         opposedActiveLabel: "探索者（能動側）",
         opposedPassiveLabel: "対抗先（受動側）",
         opposedActive: "",
@@ -2704,6 +3080,7 @@
         qaItems: createDefaultQaItems(),
         quoteItems: createDefaultQuoteItems(),
         choiceItems: createDefaultChoiceItems(),
+        endingItems: createDefaultEndingItems(),
         exploreItems: createDefaultExploreItems(),
         imageUrl: "",
         characterStats: createDefaultCharacterStats(),
@@ -2752,6 +3129,7 @@
         handout: "例：手記 / 調査報告書",
         secretho: "例：HO1 / PC1 / 秘匿HO",
         quote: "例：村人A / 少女",
+        ending: "",
         explore: "例：探索箇所",
         list: "例：手がかり / 持ち物",
         toc: "",
@@ -2835,7 +3213,7 @@
     }
 
     function shouldShowTitleField(type) {
-      return !["scene", "prose", "scenechange", "description", "truth", "character", "qa", "memo", "quote", "toc", "divider", "sancheck", "checkitem", "trigger", "choices", "opposedroll", "explore", "skill"].includes(type);
+      return !["scene", "prose", "scenechange", "description", "truth", "character", "qa", "memo", "quote", "toc", "divider", "sancheck", "checkitem", "trigger", "choices", "opposedroll", "explore", "skill", "ending"].includes(type);
     }
 
     function fixedTitleForType(type) {
@@ -2849,6 +3227,7 @@
         trigger: "トリガー",
         opposedroll: "対抗ロール",
         choices: "選択肢",
+        ending: "エンディング",
         truth: "KP用情報",
         secretho: "秘匿HO",
         character: "登場人物",
@@ -2875,6 +3254,9 @@
       if (child.type === "scenechange") {
         return child.body ? `シーン変更：${child.body}` : "シーン変更";
       }
+      if (child.type === "ending") {
+        return "エンディング";
+      }
       if (child.type === "skill") {
         const skillName = child.title || "";
         const baseValue = child.body2 ? `（初期値：${child.body2}％）` : "";
@@ -2890,7 +3272,7 @@
     }
 
     function shouldShowBodyField(type) {
-      return !["divider", "toc", "subheading", "opposedroll", "explore"].includes(type);
+      return !["divider", "toc", "subheading", "opposedroll", "explore", "ending"].includes(type);
     }
 
     function resetChildContentForType(child) {
@@ -2900,6 +3282,7 @@
       child.notes = "";
       child.showNotes = false;
       child.imageUrl = "";
+      child.listStyle = "check";
       child.handoutIcon = "book";
       child.secretHoTone = "blue";
       child.sancheckKind = "san";
@@ -2918,6 +3301,7 @@
       child.qaItems = createDefaultQaItems();
       child.quoteItems = createDefaultQuoteItems();
       child.choiceItems = createDefaultChoiceItems();
+      child.endingItems = createDefaultEndingItems();
       child.exploreItems = createDefaultExploreItems();
       child.skillResults = createEmptySkillResults();
       child.activeSkillResults = [];
@@ -2925,7 +3309,7 @@
     }
 
     function supportsPreviewLabelToggle(type) {
-      return ["scene", "description", "skill", "opposedroll", "truth", "character", "qa", "memo", "quote", "explore", "choices", "secretho"].includes(type);
+      return ["scene", "description", "skill", "opposedroll", "truth", "character", "qa", "memo", "quote", "explore", "choices", "secretho", "ending"].includes(type);
     }
 
     function shouldRenderPreviewLabel(child) {
@@ -2952,6 +3336,7 @@
         handout: "PLに渡したい情報を書く",
         secretho: "秘匿HOの内容を書く",
         quote: "セリフを書く",
+        ending: "",
         explore: "",
         list: "改行でリスト表示に",
         choices: "1行ずつ選択肢を書く",
@@ -3021,6 +3406,73 @@
 
     function nl2br(text) {
       return escapeHtml(text).replace(/\n/g, "<br>");
+    }
+
+    function findEndingTargetByTitle(title) {
+      const normalized = String(title || "").trim();
+      if (!normalized) return null;
+      for (const section of state.sections) {
+        for (const child of section.children) {
+          if (child.type !== "ending" || !Array.isArray(child.endingItems)) continue;
+          const found = child.endingItems.find((item) => String(item.title || "").trim() === normalized);
+          if (found) {
+            return { childId: child.id, itemId: found.id, title: normalized };
+          }
+        }
+      }
+      return null;
+    }
+
+    function endingAnchorId(childId, itemId) {
+      return `ending-${childId}-${itemId}`;
+    }
+
+    function renderTextWithEndingLinks(text) {
+      const source = String(text || "");
+      if (!source) return "";
+      const parts = source.split(/(\[\[[^[\]]+\]\])/g);
+      return parts.map((part) => {
+        const match = part.match(/^\[\[([^[\]]+)\]\]$/);
+        if (!match) return escapeHtml(part);
+        const target = findEndingTargetByTitle(match[1]);
+        if (!target) return escapeHtml(part);
+        return `<a class="preview-inline-link" href="#${escapeHtml(endingAnchorId(target.childId, target.itemId))}">${escapeHtml(target.title)}</a>`;
+      }).join("").replace(/\n/g, "<br>");
+    }
+
+    function getListEntries(child) {
+      return String(child.body || "")
+        .split("\n")
+        .map((item) => item.trim())
+        .filter(Boolean);
+    }
+
+    function listMarkerClass(listStyle) {
+      if (listStyle === "circle" || listStyle === "dot") return "circle";
+      if (listStyle === "number") return "number";
+      return "check";
+    }
+
+    function renderListMarker(listStyle, index) {
+      if (listStyle === "circle" || listStyle === "dot") {
+        return '<span class="preview-list-marker" aria-hidden="true"><i class="fa-regular fa-circle preview-list-circle"></i></span>';
+      }
+      if (listStyle === "number") {
+        return `<span class="preview-list-marker preview-list-number" aria-hidden="true">${index + 1}）</span>`;
+      }
+      return '<span class="preview-list-marker" aria-hidden="true"><i class="fa-solid fa-check preview-list-check"></i></span>';
+    }
+
+    function renderListItemsMarkup(child) {
+      const listStyle = child.listStyle || "check";
+      const entries = getListEntries(child);
+      if (!entries.length) return "";
+      return entries.map((item, index) => `
+        <div class="preview-list-item preview-list-item-${listMarkerClass(listStyle)}">
+          ${renderListMarker(listStyle, index)}
+          <span class="preview-list-text">${renderTextWithEndingLinks(item)}</span>
+        </div>
+      `).join("");
     }
 
     async function copyToClipboard(text) {
@@ -3138,6 +3590,13 @@
       const child = findChild(sectionId, childId);
       return child && Array.isArray(child.choiceItems)
         ? child.choiceItems.find((item) => item.id === choiceId)
+        : null;
+    }
+
+    function findEndingItem(sectionId, childId, endingId) {
+      const child = findChild(sectionId, childId);
+      return child && Array.isArray(child.endingItems)
+        ? child.endingItems.find((item) => item.id === endingId)
         : null;
     }
 
@@ -3314,6 +3773,21 @@
         : (remaining[0] || skillResultOptions[0].value);
     }
 
+    function ensureEndingState(child) {
+      if (!Array.isArray(child.endingItems)) {
+        child.endingItems = createDefaultEndingItems();
+      }
+      if (child.endingItems.length === 0) {
+        child.endingItems = createDefaultEndingItems();
+      }
+      child.endingItems = child.endingItems.map((item) => ({
+        id: item.id || uid(),
+        title: item.title || "",
+        body: item.body || "",
+        collapsed: Boolean(item.collapsed)
+      }));
+    }
+
     function cloneChild(child) {
       return {
         ...child,
@@ -3325,6 +3799,7 @@
         sancheckKind: child.sancheckKind || "san",
         checkitemKind: child.checkitemKind || "confirm",
         triggerTone: child.triggerTone || "purple",
+      listStyle: child.listStyle === "dot" ? "circle" : (child.listStyle || "check"),
         opposedActiveLabel: child.opposedActiveLabel || "探索者（能動側）",
         opposedPassiveLabel: child.opposedPassiveLabel || "対抗先（受動側）",
         opposedActive: child.opposedActive || "",
@@ -3338,6 +3813,9 @@
         choiceItems: Array.isArray(child.choiceItems)
           ? child.choiceItems.map((item) => ({ text: "", destination: "", ...item, id: uid(), collapsed: Boolean(item.collapsed) }))
           : createDefaultChoiceItems(),
+        endingItems: Array.isArray(child.endingItems)
+          ? child.endingItems.map((item) => ({ title: "", body: "", ...item, id: uid(), collapsed: Boolean(item.collapsed) }))
+          : createDefaultEndingItems(),
         exploreItems: Array.isArray(child.exploreItems)
           ? child.exploreItems.map((item) => ({
               title: "",
@@ -3693,6 +4171,39 @@
                       `).join("")}
                       <button class="secondary" data-action="choice-add" data-section-id="${section.id}" data-child-id="${child.id}">選択肢を追加</button>
                     </div>
+                  ` : child.type === "ending" ? `
+                    <div class="qa-grid">
+                      <p class="muted">本文中に <code>[[END A]]</code> のように書くと、同名のエンディングへリンクできます。</p>
+                      ${((child.endingItems && child.endingItems.length ? child.endingItems : createDefaultEndingItems())).map((item, endingIndex) => `
+                        <div class="editor-block${item.collapsed ? " is-collapsed" : ""}" data-editor-ending-id="${item.id}" data-section-id="${section.id}" data-child-id="${child.id}">
+                          <div class="editor-head">
+                            <div class="mini-buttons">
+                              <button class="secondary" data-action="ending-toggle" data-section-id="${section.id}" data-child-id="${child.id}" data-ending-id="${item.id}">${item.collapsed ? "開く" : "閉じる"}</button>
+                              <button class="secondary" data-action="ending-up" data-section-id="${section.id}" data-child-id="${child.id}" data-ending-id="${item.id}">↑</button>
+                              <button class="secondary" data-action="ending-down" data-section-id="${section.id}" data-child-id="${child.id}" data-ending-id="${item.id}">↓</button>
+                              <button class="danger" data-action="ending-delete" data-section-id="${section.id}" data-child-id="${child.id}" data-ending-id="${item.id}">削除</button>
+                            </div>
+                          </div>
+                          <div class="editor-label-row">
+                            <button class="drag-handle" type="button" draggable="true" data-drag-type="ending" data-section-id="${section.id}" data-child-id="${child.id}" data-ending-id="${item.id}" aria-label="エンディングをドラッグして移動" title="ドラッグして移動">
+                              <i class="fa-solid fa-grip-vertical" aria-hidden="true"></i>
+                            </button>
+                            <div class="ghost-label">${escapeHtml(item.title || `END ${endingIndex + 1}`)}</div>
+                          </div>
+                          <div class="${item.collapsed ? "collapsed-body" : ""}">
+                            <div class="field">
+                              <label>タイトル</label>
+                              <input type="text" data-ending-field="title" data-section-id="${section.id}" data-child-id="${child.id}" data-ending-id="${item.id}" value="${escapeHtml(item.title || "")}" placeholder="例：END A / TRUE END / BAD END">
+                            </div>
+                            <div class="field">
+                              <label>内容</label>
+                              <textarea class="medium" data-ending-field="body" data-section-id="${section.id}" data-child-id="${child.id}" data-ending-id="${item.id}" placeholder="エンディング内容を書く">${escapeHtml(item.body || "")}</textarea>
+                            </div>
+                          </div>
+                        </div>
+                      `).join("")}
+                      <button class="secondary" data-action="ending-add" data-section-id="${section.id}" data-child-id="${child.id}">エンディングを追加</button>
+                    </div>
                   ` : child.type === "explore" ? `
                     <div class="qa-grid">
                       ${((child.exploreItems && child.exploreItems.length ? child.exploreItems : createDefaultExploreItems())).map((item, exploreIndex) => `
@@ -3947,7 +4458,7 @@
                                               </div>
                                               <div class="field">
                                                 <label>補足</label>
-                                                <textarea class="short" data-attack-field="note" data-section-id="${section.id}" data-child-id="${child.id}" data-entry-id="${entry.id}" data-attack-id="${item.id}" placeholder="例：近接 / 射程 / 命中補正">${escapeHtml(item.note || "")}</textarea>
+                                                <input type="text" data-attack-field="note" data-section-id="${section.id}" data-child-id="${child.id}" data-entry-id="${entry.id}" data-attack-id="${item.id}" value="${escapeHtml(item.note || "")}" placeholder="例：近接 / 射程 / 命中補正">
                                               </div>
                                             </div>
                                           `).join("")}
@@ -4033,12 +4544,28 @@
                       })()}
                     </div>
                   ` : `
-                    ${shouldShowBodyField(child.type) ? `
-                      <div class="field">
-                        <label>${bodyLabel(child.type)}</label>
-                        ${child.type === "scenechange"
-                          ? `<input type="text" data-child-field="body" data-section-id="${section.id}" data-child-id="${child.id}" value="${escapeHtml(child.body)}" placeholder="${escapeHtml(bodyPlaceholder(child.type))}">`
-                          : child.type === "sancheck"
+                  ${shouldShowBodyField(child.type) ? `
+                    <div class="field">
+                      <label>${bodyLabel(child.type)}</label>
+                      ${child.type === "list" ? `
+                        <div class="list-style-options" role="radiogroup" aria-label="箇条書きの表示">
+                          <label class="list-style-option">
+                            <input type="radio" aria-label="check" name="listStyle-${section.id}-${child.id}" data-child-field="listStyle" data-section-id="${section.id}" data-child-id="${child.id}" value="check" ${((child.listStyle || "check") === "check") ? "checked" : ""}>
+                            <span class="list-style-option-icon" aria-hidden="true"><i class="fa-solid fa-check"></i></span>
+                          </label>
+                          <label class="list-style-option">
+                            <input type="radio" aria-label="circle" name="listStyle-${section.id}-${child.id}" data-child-field="listStyle" data-section-id="${section.id}" data-child-id="${child.id}" value="circle" ${((child.listStyle || "check") === "circle" || (child.listStyle || "check") === "dot") ? "checked" : ""}>
+                            <span class="list-style-option-icon list-style-option-circle" aria-hidden="true"><i class="fa-regular fa-circle"></i></span>
+                          </label>
+                          <label class="list-style-option">
+                            <input type="radio" aria-label="number" name="listStyle-${section.id}-${child.id}" data-child-field="listStyle" data-section-id="${section.id}" data-child-id="${child.id}" value="number" ${((child.listStyle || "check") === "number") ? "checked" : ""}>
+                            <span class="list-style-option-icon list-style-option-number" aria-hidden="true">1)</span>
+                          </label>
+                        </div>
+                      ` : ""}
+                      ${child.type === "scenechange"
+                        ? `<input type="text" data-child-field="body" data-section-id="${section.id}" data-child-id="${child.id}" value="${escapeHtml(child.body)}" placeholder="${escapeHtml(bodyPlaceholder(child.type))}">`
+                        : child.type === "sancheck"
                             ? `<input type="text" data-child-field="body" data-section-id="${section.id}" data-child-id="${child.id}" value="${escapeHtml(child.body)}" placeholder="${escapeHtml(bodyPlaceholder(child.type))}">`
                             : child.type === "checkitem"
                               ? `<input type="text" data-child-field="body" data-section-id="${section.id}" data-child-id="${child.id}" value="${escapeHtml(child.body)}" placeholder="${escapeHtml(bodyPlaceholder(child.type))}">`
@@ -4058,13 +4585,15 @@
 
                   ${!["truth", "divider", "toc"].includes(child.type) ? `
                     ${shouldShowNotesField(child) ? `
-                      <div class="field">
-                        <label>注記</label>
-                        <textarea data-child-field="notes" data-section-id="${section.id}" data-child-id="${child.id}" placeholder="必要なら注記" data-editor-notes-field="true">${escapeHtml(child.notes)}</textarea>
-                        <div class="mini-buttons notes-row">
-                          <button class="secondary" data-action="notes-remove" data-section-id="${section.id}" data-child-id="${child.id}">注記を削除</button>
-                        </div>
-                      </div>
+      <div class="field">
+        <div class="notes-head">
+          <label>注記</label>
+          <button class="secondary icon-only-button notes-remove-button" type="button" data-action="notes-remove" data-section-id="${section.id}" data-child-id="${child.id}" aria-label="削除" data-tooltip="削除">
+            <i class="fa-solid fa-trash" aria-hidden="true"></i>
+          </button>
+        </div>
+        <textarea data-child-field="notes" data-section-id="${section.id}" data-child-id="${child.id}" placeholder="必要なら注記" data-editor-notes-field="true">${escapeHtml(child.notes)}</textarea>
+      </div>
                     ` : `
                       <div class="mini-buttons notes-row">
                         <button class="secondary" data-action="notes-add" data-section-id="${section.id}" data-child-id="${child.id}">注記を追加</button>
@@ -4081,7 +4610,7 @@
                 ${renderChildTypePicker({ selectedValue: section.newChildType || "description", sectionId: section.id })}
                 <button class="primary add-child-button" data-action="add-child" data-section-id="${section.id}">子コンテンツ追加</button>
               </div>
-              <button class="secondary scroll-top-button scroll-icon-button" data-action="scroll-to-top-toolbar" type="button" aria-label="上に戻る" title="上に戻る">
+              <button class="secondary scroll-top-button scroll-icon-button" data-action="scroll-to-top-toolbar" type="button" aria-label="一番上へ" data-tooltip="一番上へ">
                 <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
               </button>
             </div>
@@ -4098,7 +4627,7 @@
       sectionList.appendChild(insertRow);
     }
 
-    function renderChild(child) {
+    function renderChild(child, mode = "preview") {
       if (child.type === "divider") {
         return `<div class="preview-divider" aria-hidden="true"></div>`;
       }
@@ -4115,7 +4644,7 @@
         return `
           <div class="preview-block">
             ${shouldRenderPreviewLabel(child) ? `<div class="tag tag-scene">${escapeHtml(effectiveBlockTitle(child))}</div>` : ""}
-            ${child.body ? `<p>${nl2br(child.body)}</p>` : ""}
+            ${child.body ? `<p>${renderTextWithEndingLinks(child.body)}</p>` : ""}
             ${child.notes ? `<p class="muted preview-child-note">${nl2br(child.notes)}</p>` : ""}
           </div>
         `;
@@ -4124,7 +4653,7 @@
       if (child.type === "prose") {
         return `
           <div class="preview-block">
-            ${child.body ? `<p>${nl2br(child.body)}</p>` : ""}
+            ${child.body ? `<p>${renderTextWithEndingLinks(child.body)}</p>` : ""}
             ${child.notes ? `<p class="muted preview-child-note">${nl2br(child.notes)}</p>` : ""}
           </div>
         `;
@@ -4206,8 +4735,8 @@
         return `
           <div class="preview-block">
             ${shouldRenderPreviewLabel(child) ? `<div class="tag tag-desc">${escapeHtml(effectiveBlockTitle(child))}</div>` : ""}
-            ${child.body ? `<p>${nl2br(child.body)}</p>` : ""}
-            ${child.body2 ? `<p>${nl2br(child.body2)}</p>` : ""}
+            ${child.body ? `<p>${renderTextWithEndingLinks(child.body)}</p>` : ""}
+            ${child.body2 ? `<p>${renderTextWithEndingLinks(child.body2)}</p>` : ""}
             ${child.notes ? `<p class="muted preview-child-note">${nl2br(child.notes)}</p>` : ""}
           </div>
         `;
@@ -4219,7 +4748,7 @@
         return `
           <div class="preview-block">
             ${shouldRenderPreviewLabel(child) ? `<div class="tag tag-skill">${escapeHtml(effectiveBlockTitle(child))}</div>` : ""}
-            ${child.body ? `<p>${nl2br(child.body)}</p>` : ""}
+            ${child.body ? `<p>${renderTextWithEndingLinks(child.body)}</p>` : ""}
             <div class="preview-skill-grid">
               ${child.activeSkillResults.includes("success") && skill.success ? `
                 <div class="preview-skill-item">
@@ -4254,8 +4783,8 @@
         return `
           <div class="preview-block">
             ${shouldRenderPreviewLabel(child) ? `<div class="tag tag-truth">${escapeHtml(effectiveBlockTitle(child))}</div>` : ""}
-            ${child.body ? `<blockquote class="preview-blockquote">${nl2br(child.body)}</blockquote>` : ""}
-            ${child.body2 ? `<p>${nl2br(child.body2)}</p>` : ""}
+            ${child.body ? `<blockquote class="preview-blockquote">${renderTextWithEndingLinks(child.body)}</blockquote>` : ""}
+            ${child.body2 ? `<p>${renderTextWithEndingLinks(child.body2)}</p>` : ""}
           </div>
         `;
       }
@@ -4311,8 +4840,8 @@
         return `
           <div class="preview-block">
             ${shouldRenderPreviewLabel(child) ? `<div class="tag tag-memo">${escapeHtml(effectiveBlockTitle(child))}</div>` : ""}
-            ${child.body ? `<p>${nl2br(child.body)}</p>` : ""}
-            ${child.body2 ? `<p>${nl2br(child.body2)}</p>` : ""}
+            ${child.body ? `<p>${renderTextWithEndingLinks(child.body)}</p>` : ""}
+            ${child.body2 ? `<p>${renderTextWithEndingLinks(child.body2)}</p>` : ""}
             ${child.notes ? `<p class="muted preview-child-note">${nl2br(child.notes)}</p>` : ""}
           </div>
         `;
@@ -4343,17 +4872,12 @@
       }
 
       if (child.type === "list") {
-        const items = (child.body || "")
-          .split("\n")
-          .map((item) => item.trim())
-          .filter(Boolean)
-          .map((item) => `<li>${escapeHtml(item)}</li>`)
-          .join("");
+        const items = renderListItemsMarkup(child);
         return `
           <div class="preview-block">
-            ${child.title ? `<div class="tag tag-memo">${escapeHtml(effectiveBlockTitle(child))}</div>` : ""}
-            ${items ? `<ul>${items}</ul>` : "<p>箇条書きがまだありません。</p>"}
-            ${child.notes ? `<p class="muted">${nl2br(child.notes)}</p>` : ""}
+            ${shouldRenderPreviewLabel(child) ? `<div class="tag tag-memo">${escapeHtml(effectiveBlockTitle(child))}</div>` : ""}
+            ${items ? `<div class="preview-list-bullets">${items}</div>` : "<p>箇条書きがまだありません。</p>"}
+            ${child.notes ? `<p class="muted preview-child-note">${nl2br(child.notes)}</p>` : ""}
           </div>
         `;
       }
@@ -4374,11 +4898,29 @@
                     <button type="button" class="preview-choice-summary">
                       <i class="fa-solid fa-caret-right" aria-hidden="true"></i>${escapeHtml(item.text || "未入力")}
                     </button>
-                    <div class="preview-choice-answer">${item.destination ? nl2br(item.destination) : "内容がまだありません。"}</div>
+                    <div class="preview-choice-answer">${item.destination ? renderTextWithEndingLinks(item.destination) : "内容がまだありません。"}</div>
                   </div>
                 `).join("")}
               </div>
             ` : "<p>選択肢がまだありません。</p>"}
+            ${child.notes ? `<p class="muted preview-child-note">${nl2br(child.notes)}</p>` : ""}
+          </div>
+        `;
+      }
+
+      if (child.type === "ending") {
+        ensureEndingState(child);
+        return `
+          <div class="preview-block">
+            ${shouldRenderPreviewLabel(child) ? `<div class="tag tag-memo">${escapeHtml(effectiveBlockTitle(child))}</div>` : ""}
+            <div class="preview-ending-list">
+              ${child.endingItems.map((item, index) => `
+                <div class="preview-ending-item" id="${escapeHtml(endingAnchorId(child.id, item.id))}">
+                  <div class="preview-ending-title">${escapeHtml(item.title || `END ${index + 1}`)}</div>
+                  <div class="preview-ending-body">${item.body ? renderTextWithEndingLinks(item.body) : "内容がまだありません。"}</div>
+                </div>
+              `).join("")}
+            </div>
             ${child.notes ? `<p class="muted preview-child-note">${nl2br(child.notes)}</p>` : ""}
           </div>
         `;
@@ -4410,7 +4952,7 @@
                           return `
                             <details class="preview-explore-mini" open>
                               <summary><div class="tag tag-skill">${escapeHtml(block.title || "技能")}</div></summary>
-                              ${block.body ? `<p class="preview-explore-detail-text">${nl2br(block.body)}</p>` : "<p class=\"preview-explore-detail-text\">内容がまだありません。</p>"}
+                              ${block.body ? `<p class="preview-explore-detail-text">${renderTextWithEndingLinks(block.body)}</p>` : "<p class=\"preview-explore-detail-text\">内容がまだありません。</p>"}
                             </details>
                           `;
                         }
@@ -4447,7 +4989,7 @@
                         return `
                           <details class="preview-explore-mini" open>
                             <summary></summary>
-                            ${block.body ? `<p class="preview-explore-detail-text">${nl2br(block.body)}</p>` : "<p class=\"preview-explore-detail-text\">内容がまだありません。</p>"}
+                            ${block.body ? `<p class="preview-explore-detail-text">${renderTextWithEndingLinks(block.body)}</p>` : "<p class=\"preview-explore-detail-text\">内容がまだありません。</p>"}
                           </details>
                         `;
                       }).join("") || "<p>詳細がまだありません。</p>"}
@@ -4510,20 +5052,20 @@
       return type === "toc";
     }
 
-    function renderSectionChildren(children) {
+    function renderSectionChildren(children, mode = "preview") {
       const parts = [];
       let grouped = [];
 
       const flushGrouped = () => {
         if (!grouped.length) return;
-        parts.push(`<div class="preview-block-stack">${grouped.map((child) => `<div class="preview-child-anchor" data-preview-child-id="${escapeHtml(child.id)}">${renderChild(child)}</div>`).join("")}</div>`);
+        parts.push(`<div class="preview-block-stack">${grouped.map((child) => `<div class="preview-child-anchor" data-preview-child-id="${escapeHtml(child.id)}">${renderChild(child, mode)}</div>`).join("")}</div>`);
         grouped = [];
       };
 
       children.forEach((child) => {
         if (isStandalonePreviewChild(child.type)) {
           flushGrouped();
-          parts.push(`<div class="preview-child-anchor" data-preview-child-id="${escapeHtml(child.id)}">${renderChild(child)}</div>`);
+          parts.push(`<div class="preview-child-anchor" data-preview-child-id="${escapeHtml(child.id)}">${renderChild(child, mode)}</div>`);
           return;
         }
         grouped.push(child);
@@ -4738,11 +5280,10 @@
     function syncPreviewOutlineToggle() {
       if (!previewOutlineToggle) return;
       const collapsed = document.querySelector(".right")?.classList.contains("outline-collapsed");
-      previewOutlineToggle.setAttribute("aria-label", collapsed ? "見出しナビを開く" : "見出しナビを閉じる");
-      previewOutlineToggle.setAttribute("title", collapsed ? "見出しナビを開く" : "見出しナビを閉じる");
-      previewOutlineToggle.innerHTML = collapsed
-        ? '<i class="fa-solid fa-bars-staggered" aria-hidden="true"></i><span>見出しナビ</span>'
-        : '<i class="fa-solid fa-bars-staggered" aria-hidden="true"></i><span>見出しナビ</span>';
+      const tooltip = collapsed ? "ナビを開く" : "ナビを閉じる";
+      previewOutlineToggle.setAttribute("aria-label", tooltip);
+      syncIconButtonTooltip(previewOutlineToggle, tooltip);
+      previewOutlineToggle.innerHTML = '<i class="fa-solid fa-bars-staggered" aria-hidden="true"></i><span class="preview-outline-toggle-label">見出しナビ</span>';
     }
 
     function syncScenarioInfoPanel() {
@@ -4750,7 +5291,7 @@
       scenarioInfoBody.closest(".editor-section")?.classList.toggle("is-collapsed", !!state.scenarioInfoCollapsed);
       scenarioInfoToggleButton.classList.add("icon-only-button");
       scenarioInfoToggleButton.setAttribute("aria-label", state.scenarioInfoCollapsed ? "開く" : "閉じる");
-      scenarioInfoToggleButton.setAttribute("title", state.scenarioInfoCollapsed ? "開く" : "閉じる");
+      syncIconButtonTooltip(scenarioInfoToggleButton, state.scenarioInfoCollapsed ? "開く" : "閉じる");
       scenarioInfoToggleButton.innerHTML = `<i class="fa-solid ${state.scenarioInfoCollapsed ? "fa-angle-down" : "fa-angle-up"}" aria-hidden="true"></i>`;
     }
 
@@ -4759,7 +5300,7 @@
       preludeBody.closest(".editor-section")?.classList.toggle("is-collapsed", !!state.prelude.collapsed);
       preludeToggleButton.classList.add("icon-only-button");
       preludeToggleButton.setAttribute("aria-label", state.prelude.collapsed ? "開く" : "閉じる");
-      preludeToggleButton.setAttribute("title", state.prelude.collapsed ? "開く" : "閉じる");
+      syncIconButtonTooltip(preludeToggleButton, state.prelude.collapsed ? "開く" : "閉じる");
       preludeToggleButton.innerHTML = `<i class="fa-solid ${state.prelude.collapsed ? "fa-angle-down" : "fa-angle-up"}" aria-hidden="true"></i>`;
     }
 
@@ -4903,7 +5444,7 @@
                                 </div>
                                 <div class="field">
                                   <label>補足</label>
-                                  <textarea class="short" data-prelude-npc-attack-field="note" data-prelude-npc-id="${entry.id}" data-attack-id="${item.id}" placeholder="例：近接 / 射程 / 命中補正">${escapeHtml(item.note || "")}</textarea>
+                                  <input type="text" data-prelude-npc-attack-field="note" data-prelude-npc-id="${entry.id}" data-attack-id="${item.id}" value="${escapeHtml(item.note || "")}" placeholder="例：近接 / 射程 / 命中補正">
                                 </div>
                               </div>
                             `).join("")}
@@ -5106,7 +5647,7 @@
     })();
 
     preview.addEventListener("click", (event) => {
-      const link = event.target.closest(".preview-toc-link");
+      const link = event.target.closest(".preview-toc-link, .preview-inline-link");
       if (!link) return;
       const href = link.getAttribute("href") || "";
       if (!href.startsWith("#")) return;
@@ -5208,6 +5749,10 @@
         const child = findChild(stateLike.sectionId, stateLike.childId);
         return child ? child.choiceItems : null;
       }
+      if (stateLike.type === "ending") {
+        const child = findChild(stateLike.sectionId, stateLike.childId);
+        return child ? child.endingItems : null;
+      }
       if (stateLike.type === "explore") {
         const child = findChild(stateLike.sectionId, stateLike.childId);
         return child ? child.exploreItems : null;
@@ -5229,7 +5774,7 @@
 
     function getDragItemId(stateLike) {
       if (!stateLike) return "";
-      return stateLike.childIdForNested || stateLike.qaId || stateLike.quoteId || stateLike.choiceId || stateLike.exploreId || stateLike.exploreDetailId || stateLike.entryIdForNested || stateLike.attackId || stateLike.childId || stateLike.sectionId;
+      return stateLike.childIdForNested || stateLike.qaId || stateLike.quoteId || stateLike.choiceId || stateLike.endingId || stateLike.exploreId || stateLike.exploreDetailId || stateLike.entryIdForNested || stateLike.attackId || stateLike.childId || stateLike.sectionId;
     }
 
     function dragTargetSelector(type) {
@@ -5239,6 +5784,7 @@
         qa: "[data-editor-qa-id]",
         quote: "[data-editor-quote-id]",
         choice: "[data-editor-choice-id]",
+        ending: "[data-editor-ending-id]",
         explore: "[data-editor-explore-id]",
         "explore-detail": "[data-editor-explore-detail-id]",
         "character-entry": "[data-editor-character-entry-id]",
@@ -5255,6 +5801,7 @@
         qa: element.dataset.editorQaId,
         quote: element.dataset.editorQuoteId,
         choice: element.dataset.editorChoiceId,
+        ending: element.dataset.editorEndingId,
         explore: element.dataset.editorExploreId,
         "explore-detail": element.dataset.editorExploreDetailId,
         "character-entry": element.dataset.editorCharacterEntryId,
@@ -5274,6 +5821,27 @@
       setDirty(false);
     }
 
+    function syncIconButtonTooltip(button, label) {
+      if (!button) return;
+      const text = String(label || "").trim();
+      if (!text) return;
+      button.dataset.tooltip = text;
+      button.removeAttribute("title");
+    }
+
+    function syncTitleTooltips(root = document) {
+      root.querySelectorAll("button[title]").forEach((button) => {
+        if (button.dataset.tooltip) {
+          button.removeAttribute("title");
+          return;
+        }
+        const label = button.getAttribute("title");
+        if (!label) return;
+        button.dataset.tooltip = label;
+        button.removeAttribute("title");
+      });
+    }
+
     function decorateActionButtons(root = document) {
       root.querySelectorAll("button[data-action]").forEach((button) => {
         const action = button.dataset.action || "";
@@ -5282,16 +5850,19 @@
         if (action.endsWith("copy")) {
           button.classList.add("icon-only-button");
           button.setAttribute("aria-label", "複製");
-          button.setAttribute("title", "複製");
+          syncIconButtonTooltip(button, "複製");
           button.innerHTML = '<i class="fa-solid fa-clone" aria-hidden="true"></i>';
           return;
         }
 
         if (action.endsWith("delete") || action.endsWith("remove") || action.includes("-remove-")) {
           button.classList.add("icon-only-button");
+          if (action === "notes-remove") {
+            button.classList.add("notes-remove-button");
+          }
           button.setAttribute("aria-label", "削除");
-          button.setAttribute("title", "削除");
-          button.innerHTML = '<i class="fa-regular fa-trash-can" aria-hidden="true"></i>';
+          syncIconButtonTooltip(button, "削除");
+          button.innerHTML = '<i class="fa-solid fa-trash" aria-hidden="true"></i>';
           return;
         }
 
@@ -5299,10 +5870,11 @@
           const isOpenAction = (button.textContent || "").includes("開く");
           button.classList.add("icon-only-button");
           button.setAttribute("aria-label", isOpenAction ? "開く" : "閉じる");
-          button.setAttribute("title", isOpenAction ? "開く" : "閉じる");
+          syncIconButtonTooltip(button, isOpenAction ? "開く" : "閉じる");
           button.innerHTML = `<i class="fa-solid ${isOpenAction ? "fa-angle-down" : "fa-angle-up"}" aria-hidden="true"></i>`;
         }
       });
+      syncTitleTooltips(root);
     }
 
     function exportHtml() {
@@ -5385,6 +5957,7 @@
     .preview-toc-list { display: grid; gap: 10px; }
     .preview-toc-link { display: flex; align-items: center; padding: .38rem .75rem; border-radius: 999px; background: #f3eee7; color: #37352f; text-decoration: none; font-size: .92rem; font-weight: 700; }
     .preview-toc-link.is-subheading { margin-left: 1rem; border-radius: 12px; background: #f8f4ee; font-weight: 600; font-size: .88rem; }
+    .preview-inline-link { color: #346B8B; text-decoration: underline; text-underline-offset: .16em; font-weight: 700; }
     .preview-backtoc { margin: 1rem 1rem 0 1rem; display: flex; justify-content: flex-end; }
     .tag { display: inline-block; padding: .2rem .6rem; border-radius: 999px; font-size: .86rem; font-weight: 700; margin: 0 0 1rem; }
     .tag-scene,
@@ -5433,7 +6006,16 @@
     .preview-explore-detail-text { margin: 0; }
     .preview-explore-mini { padding: .45rem 0; border-radius: 0; border: 0; background: transparent; }
     .preview-explore-mini + .preview-explore-mini { margin-top: 0; }
-    .fa-solid, .fa-regular { display: inline-block; line-height: 1; vertical-align: middle; }
+    .visually-hidden { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+    .preview-list-bullets { margin: 0 1rem; display: grid; gap: .7rem; }
+    .preview-list-item { display: grid; grid-template-columns: 1.2rem minmax(0, 1fr); column-gap: .4rem; align-items: baseline; }
+    .preview-list-marker { width: 1.2rem; min-width: 1.2rem; display: inline-flex; align-items: baseline; justify-content: center; line-height: 1; text-align: center; }
+    .preview-list-marker i { line-height: 1; }
+    .preview-list-check { color: #7f9ab2; font-size: .82rem; transform: translateY(.04rem); }
+    .preview-list-circle { color: #7f9ab2; font-size: .94rem; transform: translateY(.03rem); }
+    .preview-list-number { color: #7f9ab2; font-size: .98rem; font-weight: 700; font-variant-numeric: tabular-nums; transform: translateY(.02rem); }
+    .preview-list-text { white-space: pre-wrap; display: block; }
+    .fa-solid, .fa-regular { display: inline-block; line-height: 1; }
     .preview-blockquote { margin: 0; padding: .9rem 1rem; border-left: 4px solid #848484; background: #fffdfa; white-space: pre-wrap; }
     .preview-scenechange { margin: .15rem 1rem; display: block; width: fit-content; max-width: calc(100% - 2rem); padding: .5rem 1rem .5rem .7rem; background: #abbbc5; border-left: 5px solid #627079; white-space: pre-wrap; font-weight: 500; color: #fff; box-shadow: 3px 3px 3px #00000017; font-size: 0.9rem;}
     .preview-sancheck { margin-top: 0; display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; }
@@ -5454,6 +6036,10 @@
     .preview-choice-item.is-open .preview-choice-summary i { transform: rotate(90deg); }
     .preview-choice-answer { display: none; padding: 0 14px 14px 30px; white-space: pre-wrap; }
     .preview-choice-item.is-open .preview-choice-answer { display: block; }
+    .preview-ending-list { display: grid; gap: 1rem; margin: 0 1rem; }
+    .preview-ending-item { border: 1px solid #e7ddd1; border-radius: 14px; background: #fffdfa; overflow: hidden; }
+    .preview-ending-title { padding: 10px 14px; font-weight: 800; color: #4b6173; background: #f2efea; border-bottom: 1px solid #e7ddd1; }
+    .preview-ending-body { padding: 12px 14px; white-space: pre-wrap; }
     .tag-checkitem.confirm { background: #dff0df; color: #3d6b49; }
     .tag-checkitem.caution { background: #fff1c9; color: #8a6a1f; }
     .tag-checkitem.warning { background: #f7d8dd; color: #8a3040; }
@@ -5532,7 +6118,7 @@
         <section id="section-${escapeHtml(section.id)}">
           <h2>${escapeHtml(section.title || "新規セクション")}</h2>
           ${section.notes ? `<p class="muted preview-section-note">${nl2br(section.notes)}</p>` : ""}
-          <div class="preview-section-children">${renderSectionChildren(section.children)}</div>
+          <div class="preview-section-children">${renderSectionChildren(section.children, "export")}</div>
         </section>
       `).join("")}
     </article>
@@ -6048,11 +6634,12 @@
         if (!section) return;
         section[sectionField] = event.target.value;
         setDirty();
-        if (sectionField === "newChildType") {
-          renderEditor();
-        } else {
-          renderPreview();
-        }
+      if (sectionField === "newChildType") {
+        renderEditor();
+        decorateActionButtons(document);
+      } else {
+        renderPreview();
+      }
         return;
       }
 
@@ -6080,6 +6667,9 @@
           }
           if (child.type === "choices" && (!child.choiceItems || child.choiceItems.length === 0)) {
             child.choiceItems = createDefaultChoiceItems();
+          }
+          if (child.type === "ending" && (!child.endingItems || child.endingItems.length === 0)) {
+            child.endingItems = createDefaultEndingItems();
           }
           if (child.type === "explore" && (!child.exploreItems || child.exploreItems.length === 0)) {
             child.exploreItems = createDefaultExploreItems();
@@ -6215,9 +6805,36 @@
         renderPreview();
         return;
       }
+
+      const endingField = event.target.dataset.endingField;
+      if (endingField && sectionId && childId) {
+        const item = findEndingItem(sectionId, childId, event.target.dataset.endingId);
+        if (!item) return;
+        item[endingField] = event.target.value;
+        setDirty();
+        renderPreview();
+        return;
+      }
     });
 
     sectionList.addEventListener("change", (event) => {
+      const childField = event.target.dataset.childField;
+      const sectionId = event.target.dataset.sectionId;
+      const childId = event.target.dataset.childId;
+      if (childField && sectionId && childId) {
+        const child = findChild(sectionId, childId);
+        if (!child) return;
+        let nextValue = childField === "showLabel" ? event.target.checked : event.target.value;
+        if (child.type === "opposedroll" && (childField === "opposedActive" || childField === "opposedPassive")) {
+          nextValue = normalizeOpposedValue(nextValue);
+          event.target.value = nextValue;
+        }
+        child[childField] = nextValue;
+        setDirty();
+        renderPreview();
+        return;
+      }
+
       const input = event.target.closest("input[data-character-image-input]");
       if (!input) return;
 
@@ -6232,6 +6849,18 @@
       });
 
       input.value = "";
+    });
+
+    sectionList.addEventListener("change", (event) => {
+      const childField = event.target.dataset.childField;
+      const sectionId = event.target.dataset.sectionId;
+      const childId = event.target.dataset.childId;
+      if (childField !== "listStyle" || !sectionId || !childId) return;
+      const child = findChild(sectionId, childId);
+      if (!child) return;
+      child.listStyle = event.target.value === "dot" ? "circle" : event.target.value;
+      setDirty();
+      renderPreview();
     });
 
     sectionList.addEventListener("toggle", (event) => {
@@ -6265,6 +6894,7 @@
         qaId: handle.dataset.qaId || "",
         quoteId: handle.dataset.quoteId || "",
         choiceId: handle.dataset.choiceId || "",
+        endingId: handle.dataset.endingId || "",
         exploreId: handle.dataset.exploreId || "",
         exploreDetailId: handle.dataset.exploreDetailId || "",
         entryId: handle.dataset.entryId || "",
@@ -6435,7 +7065,7 @@
     });
 
     preview.addEventListener("click", (event) => {
-      if (event.target.closest("[data-copy-text], .preview-toc-link, input, textarea, select, button, summary, details")) return;
+      if (event.target.closest("[data-copy-text], a, input, textarea, select, button, summary, details")) return;
       const childAnchor = event.target.closest("[data-preview-child-id]");
       if (!childAnchor) return;
       scrollEditorToChild(childAnchor.dataset.previewChildId);
@@ -6647,6 +7277,9 @@
         }
         if (child.type === "choices" && (!child.choiceItems || child.choiceItems.length === 0)) {
           child.choiceItems = createDefaultChoiceItems();
+        }
+        if (child.type === "ending" && (!child.endingItems || child.endingItems.length === 0)) {
+          child.endingItems = createDefaultEndingItems();
         }
         if (child.type === "explore" && (!child.exploreItems || child.exploreItems.length === 0)) {
           child.exploreItems = createDefaultExploreItems();
@@ -6864,6 +7497,46 @@
         child.choiceItems = child.choiceItems.filter((item) => item.id !== button.dataset.choiceId);
         if (child.choiceItems.length === 0) {
           child.choiceItems.push({ id: uid(), text: "", destination: "", collapsed: false });
+        }
+        renderAll();
+        return;
+      }
+
+      if (action === "ending-add" && section && childId) {
+        const child = findChild(sectionId, childId);
+        if (!child) return;
+        ensureEndingState(child);
+        const newEnding = { id: uid(), title: "", body: "", collapsed: false };
+        child.endingItems.push(newEnding);
+        scheduleNestedScroll(`[data-editor-ending-id="${newEnding.id}"]`, childId);
+        renderAll();
+        return;
+      }
+
+      if ((action === "ending-up" || action === "ending-down") && section && childId) {
+        const child = findChild(sectionId, childId);
+        if (!child || !Array.isArray(child.endingItems)) return;
+        moveItem(child.endingItems, button.dataset.endingId, action === "ending-up" ? "up" : "down");
+        renderAll();
+        return;
+      }
+
+      if (action === "ending-toggle" && section && childId) {
+        const child = findChild(sectionId, childId);
+        if (!child || !Array.isArray(child.endingItems)) return;
+        const item = child.endingItems.find((entry) => entry.id === button.dataset.endingId);
+        if (!item) return;
+        item.collapsed = !item.collapsed;
+        renderAll();
+        return;
+      }
+
+      if (action === "ending-delete" && section && childId) {
+        const child = findChild(sectionId, childId);
+        if (!child || !Array.isArray(child.endingItems)) return;
+        child.endingItems = child.endingItems.filter((item) => item.id !== button.dataset.endingId);
+        if (child.endingItems.length === 0) {
+          child.endingItems = createDefaultEndingItems();
         }
         renderAll();
         return;
@@ -7214,6 +7887,7 @@
                       handoutIcon: normalizeHandoutIcon(child.handoutIcon || "book"),
                       secretHoTone: child.secretHoTone || "blue",
                       triggerTone: child.triggerTone || "purple",
+                      listStyle: child.listStyle === "dot" ? "circle" : (child.listStyle || "check"),
                       opposedActive: child.opposedActive || "",
                       sancheckKind: child.sancheckKind || "san",
                       checkitemKind: child.checkitemKind || "confirm",
